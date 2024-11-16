@@ -1,0 +1,111 @@
+/* ================================
+   GERAL
+================================ */
+body {
+    background-color: #f9f9f9;
+}
+
+.ui.container {
+    margin-top: 30px;
+}
+
+/* ================================
+   CABEÇALHO
+================================ */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.header-container h3 {
+    font-size: 1.8rem;
+    color: #00b5ad;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-container .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.header-container .logout-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-container .logout-btn:hover {
+    background-color: #c0392b;
+}
+
+/* ================================
+   BOTÕES E AÇÕES
+================================ */
+.action-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#add-pendencia-btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+/* ================================
+   TABELA
+================================ */
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.ui.celled.table {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ui.celled.table th {
+    background-color: #00b5ad;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+}
+
+.ui.celled.table td {
+    text-align: center;
+    padding: 12px;
+}
+
+/* ================================
+   MODAL
+================================ */
+.ui.modal {
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.ui.modal .header {
+    font-size: 1.5rem;
+    color: #00b5ad;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendências Financeiras</title>
+    <!-- Semantic UI CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/pendencias.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="ui container">
+      <!-- Cabeçalho -->
+      <div class="header-container">
+        <h3><i class="file alternate icon"></i> Pendências Financeiras</h3>
+        <div class="user-info">
+          <i class="user circle icon"></i> Bem-vindo, {{ user }}
+          <a href="/logout" class="logout-btn">
+            <i class="sign-out icon"></i> Sair
+          </a>
+        </div>
+      </div>
+
+      <!-- Botão de Ação -->
+      <div class="action-container">
+        <button class="ui teal button" id="add-pendencia-btn">
+          <i class="plus icon"></i> Adicionar Pendência
+        </button>
+      </div>
+
+      <!-- Tabela de Pendências -->
+      <div class="table-container">
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th>Total Pago</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="pendencias-table-body">
+            <!-- Conteúdo gerado dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal: Adicionar Pendência -->
+      <div class="ui modal" id="pendencia-modal">
+        <i class="close icon"></i>
+        <div class="header" id="modal-title">Adicionar Pendência</div>
+        <div class="content">
+          <form id="pendencia-form" class="ui form">
+            <input type="hidden" id="pendencia-id" />
+            <div class="field">
+              <label for="data">Data</label>
+              <input type="date" id="data" name="data" required />
+            </div>
+            <div class="field">
+              <label for="descricao">Descrição</label>
+              <textarea
+                id="descricao"
+                name="descricao"
+                rows="3"
+                placeholder="Descrição do pedido"
+                required
+              ></textarea>
+            </div>
+            <div class="field">
+              <label for="valor">Valor (R$)</label>
+              <input
+                type="number"
+                id="valor"
+                name="valor"
+                step="0.01"
+                required
+              />
+            </div>
+            <button type="submit" class="ui teal button">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="{{ url_for('static', filename='js/pendencias.js') }}"></script>
+  </body>
+</html>
