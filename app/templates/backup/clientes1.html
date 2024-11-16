@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Controle Financeiro</title>
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <!-- Barra Lateral -->
+    <div class="ui sidebar inverted vertical menu">
+        <a class="item teal" href="/dashboard"><i class="home icon"></i> Dashboard</a>
+        <a class="item teal active" href="/clientes"><i class="users icon"></i> Clientes</a>
+        <a class="item teal" href="/pendencias"><i class="file alternate icon"></i> Pendências</a>
+        <a class="item teal" href="/relatorios"><i class="chart pie icon"></i> Relatórios</a>
+        <a class="item teal" href="/configuracoes"><i class="cog icon"></i> Configurações</a>
+    </div>
+
+    <!-- Área Principal -->
+    <div class="pusher">
+        <div class="ui container">
+            <!-- Cabeçalho -->
+            <div class="page-header">
+                <h3><i class="users icon"></i> Clientes</h3>
+                <div>
+                    <button class="ui teal button" id="add-client-btn">
+                        <i class="plus icon"></i> Adicionar Cliente
+                    </button>
+                    <button class="ui button" id="toggle-sidebar">
+                        <i class="bars icon"></i> Menu
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barra de Pesquisa -->
+            <div class="search-bar">
+                <div class="ui icon input">
+                    <input type="text" id="search-client" placeholder="Pesquisar cliente...">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+
+            <!-- Botões de Exportação -->
+            <div class="export-buttons">
+                <a href="/clientes/export/csv" class="ui teal button"><i class="file csv icon"></i> Exportar CSV</a>
+                <a href="/clientes/export/excel" class="ui teal button"><i class="file excel icon"></i> Exportar Excel</a>
+                <a href="/clientes/export/pdf" class="ui teal button"><i class="file pdf icon"></i> Exportar PDF</a>
+            </div>
+
+            <!-- Mensagem de Nenhum Cliente Encontrado -->
+            <div class="ui warning message hidden" id="no-clients-message">
+                <i class="warning circle icon"></i> Nenhum cliente encontrado.
+            </div>
+
+            <!-- Tabela de Clientes -->
+            <div class="table-container">
+                <table class="ui celled table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Aluno</th>
+                            <th>Responsável</th>
+                            <th>Telefone</th>
+                            <th>CPF</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clients-table-body">
+                        <!-- Os clientes serão carregados dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Controles de Paginação -->
+            <div class="pagination" id="pagination-controls">
+                <!-- Botões de paginação serão adicionados dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Cliente -->
+    <div class="ui modal" id="client-modal">
+        <i class="close icon"></i>
+        <div class="header" id="modal-title">Adicionar Cliente</div>
+        <div class="content">
+            <form id="client-form" class="ui form">
+                <input type="hidden" id="client-id">
+                <div class="field">
+                    <label for="aluno">Aluno</label>
+                    <input type="text" id="aluno" name="aluno" placeholder="Nome do aluno" required>
+                </div>
+                <div class="field">
+                    <label for="responsavel">Responsável</label>
+                    <input type="text" id="responsavel" name="responsavel" placeholder="Nome do responsável" required>
+                </div>
+                <div class="field">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" placeholder="Telefone" required>
+                </div>
+                <div class="field">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="CPF do cliente" required>
+                </div>
+                <button type="submit" class="ui teal button">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="/static/js/scripts.js"></script>
+</body>
+</html>

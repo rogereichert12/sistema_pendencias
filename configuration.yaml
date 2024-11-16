@@ -1,0 +1,29 @@
+-app
+    - node_modules
+    - routes
+        - __init.py
+        - auth_routes.py
+        - cliente_routes.py
+        - dashboard_routes.py
+        - export_routes.py
+        - models.py
+    - static
+        - css
+            - styles.js
+        - img
+        - js
+            - scripts.js
+    - templates
+        - clientes.html
+        - dashboard.html
+        - index.html
+        - login.html
+    - tests
+    - __init.py
+    - .env
+    - config.py
+    - helpers.py
+    - packpage.-lock.json
+    - README.md
+    - requirements.txt
+run.py

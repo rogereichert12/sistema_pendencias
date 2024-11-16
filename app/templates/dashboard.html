@@ -1,0 +1,98 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Controle Financeiro</title>
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+    <div class="ui container">
+        <!-- Cabeçalho -->
+        <div class="header-container">
+            <h3>
+                <i class="chart bar icon"></i> Dashboard - Controle Financeiro
+            </h3>
+            <div class="user-info">
+                <i class="user circle icon"></i> Bem-vindo, {{ user }}
+                <a href="/logout" class="logout-btn">
+                    <i class="sign-out icon"></i> Sair
+                </a>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="cards-container">
+            <!-- Card: Clientes -->
+            <div class="ui card">
+                <div class="icon-container">
+                    <i class="users icon"></i>
+                </div>
+                <div class="header">Clientes</div>
+                <div class="description">
+                    Gerencie seus clientes cadastrados.
+                </div>
+                <a href="{{ url_for('clientes.clientes_page') }}" class="action-btn">
+                    <i class="eye icon"></i> Ver Clientes
+                </a>
+            </div>
+
+            <!-- Card: Pendências -->
+            <div class="ui card">
+                <div class="icon-container">
+                    <i class="file alternate icon"></i>
+                </div>
+                <div class="header">Pendências</div>
+                <div class="description">
+                    Controle de pendências financeiras.
+                </div>
+                <a href="/pendencias" class="action-btn">
+                    <i class="list icon"></i> Ver Pendências
+                </a>
+            </div>
+
+            <!-- Card: Relatórios -->
+            <div class="ui card">
+                <div class="icon-container">
+                    <i class="chart pie icon"></i>
+                </div>
+                <div class="header">Relatórios</div>
+                <div class="description">
+                    Gere relatórios detalhados para análise e acompanhamento.
+                </div>
+                <a href="/relatorios" class="action-btn">
+                    <i class="chart bar icon"></i> Ver Relatórios
+                </a>
+            </div>
+
+            <!-- Card: Configurações -->
+            <div class="ui card">
+                <div class="icon-container">
+                    <i class="cog icon"></i>
+                </div>
+                <div class="header">Configurações</div>
+                <div class="description">
+                    Personalize opções e ajuste parâmetros do sistema.
+                </div>
+                <a href="/configuracoes" class="action-btn">
+                    <i class="cog icon"></i> Configurações
+                </a>
+            </div>
+        </div>
+
+        <!-- Rodapé -->
+        <div class="footer">
+            &copy; 2024 Controle Financeiro. Todos os direitos reservados.
+        </div>
+    </div>
+</body>
+
+</html>

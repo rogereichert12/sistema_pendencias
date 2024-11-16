@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro</title>
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="ui container">
+        <!-- Cabeçalho -->
+        <h1 class="ui center aligned header">
+            <i class="money bill alternate outline icon"></i>
+            Controle Financeiro
+        </h1>
+        <div class="ui divider"></div>
+
+        <!-- Lista de Clientes -->
+        <h2 class="ui dividing header">Clientes</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="ui message">
+                <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Aluno</th>
+                    <th>Responsável</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nome_aluno }}</td>
+                    <td>{{ cliente.nome_responsavel }}</td>
+                    <td>{{ cliente.cpf_responsavel }}</td>
+                    <td>{{ cliente.telefone }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_client', id=cliente.id) }}" class="ui red button">
+                            <i class="trash alternate icon"></i> Excluir
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Formulário para adicionar cliente -->
+        <h2 class="ui dividing header">Adicionar Cliente</h2>
+        <form method="POST" action="/add" class="ui form">
+            <div class="field">
+                <label for="aluno">Aluno:</label>
+                <input type="text" id="aluno" name="aluno" placeholder="Nome do Aluno" required>
+            </div>
+            <div class="field">
+                <label for="responsavel">Responsável:</label>
+                <input type="text" id="responsavel" name="responsavel" placeholder="Nome do Responsável" required>
+            </div>
+            <div class="field">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" placeholder="CPF do Responsável" required>
+            </div>
+            <div class="field">
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone" placeholder="Telefone de Contato">
+            </div>
+            <button type="submit" class="ui green button">
+                <i class="plus icon"></i> Adicionar
+            </button>
+        </form>
+    </div>
+
+    <!-- Semantic UI JS -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+</html>

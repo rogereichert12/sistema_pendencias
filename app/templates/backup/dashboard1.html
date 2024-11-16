@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Controle Financeiro</title>
+    <!-- Semantic UI CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="ui container" style="margin-top: 30px;">
+        <!-- Cabeçalho -->
+        <div class="ui top attached menu">
+            <div class="item">
+                <h3 class="ui header teal">
+                    <i class="chart bar icon"></i>
+                    Dashboard - Controle Financeiro
+                </h3>
+            </div>
+            <div class="right menu">
+                <div class="item">
+                    <i class="user circle icon"></i> Bem-vindo, {{ user }}
+                </div>
+                <a href="/logout" class="item">
+                    <i class="sign-out-alt icon"></i> Sair
+                </a>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="ui padded segment">
+            <!-- Linha 1 -->
+            <div class="ui two column grid">
+                <!-- Card: Clientes -->
+                <div class="column">
+                    <div class="ui teal card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="users icon"></i> Clientes
+                            </div>
+                            <div class="meta">
+                                Gerencie seus clientes cadastrados.
+                            </div>
+                            <div class="description">
+                                Visualize, edite e registre novos clientes no sistema.
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a href="/clientes" class="ui button teal fluid">
+                                <i class="eye icon"></i> Ver Clientes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Pendências -->
+                <div class="column">
+                    <div class="ui teal card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="file alternate icon"></i> Pendências
+                            </div>
+                            <div class="meta">
+                                Controle de pendências financeiras.
+                            </div>
+                            <div class="description">
+                                Acompanhe e gerencie as pendências financeiras dos clientes.
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a href="/pendencias" class="ui button teal fluid">
+                                <i class="list icon"></i> Ver Pendências
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Linha 2 -->
+            <div class="ui two column grid">
+                <!-- Card: Relatórios -->
+                <div class="column">
+                    <div class="ui teal card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="chart pie icon"></i> Relatórios
+                            </div>
+                            <div class="meta">
+                                Relatórios financeiros e estatísticas.
+                            </div>
+                            <div class="description">
+                                Gere relatórios detalhados para análise e acompanhamento.
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a href="/relatorios" class="ui button teal fluid">
+                                <i class="chart bar icon"></i> Ver Relatórios
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Configurações -->
+                <div class="column">
+                    <div class="ui teal card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="cog icon"></i> Configurações
+                            </div>
+                            <div class="meta">
+                                Ajuste as configurações do sistema.
+                            </div>
+                            <div class="description">
+                                Personalize opções e ajuste parâmetros do sistema.
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a href="/configuracoes" class="ui button teal fluid">
+                                <i class="cog icon"></i> Configurações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Linha 3 - Novos Cards -->
+            <div class="ui two column grid">
+                <!-- Card: Total de Clientes -->
+                <div class="column">
+                    <div class="ui green card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="users icon"></i> Total de Clientes
+                            </div>
+                            <div class="meta">
+                                Contagem de clientes no sistema.
+                            </div>
+                            <div class="description">
+                                <!-- Valor Default -->
+                                <h2 style="text-align: center;">123</h2>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span class="ui label green">
+                                <i class="users icon"></i> Atualizado
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card: Pendências Financeiras -->
+                <div class="column">
+                    <div class="ui orange card">
+                        <div class="content">
+                            <div class="header">
+                                <i class="file alternate icon"></i> Pendências Financeiras
+                            </div>
+                            <div class="meta">
+                                Contagem de pendências financeiras.
+                            </div>
+                            <div class="description">
+                                <!-- Valor Default -->
+                                <h2 style="text-align: center;">45</h2>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span class="ui label orange">
+                                <i class="file alternate icon"></i> Atualizado
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Semantic UI JS -->
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+</html>

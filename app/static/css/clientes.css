@@ -1,0 +1,86 @@
+/* Global Styles */
+body {
+    background-color: #f9f9f9;
+}
+
+/* Header Section */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0 30px;
+}
+
+.page-header h3 {
+    font-size: 1.8rem;
+    color: #00b5ad;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Search Bar */
+.search-bar {
+    margin: 20px 0 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar .ui.input {
+    width: 60%;
+}
+
+/* Export Buttons */
+.export-buttons {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Table Styles */
+.ui.table {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.85rem;
+}
+
+.ui.table th {
+    background-color: #00b5ad;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+}
+
+.ui.table td {
+    text-align: center;
+    padding: 6px 8px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination .ui.button {
+    margin: 0 5px;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.pagination .ui.button.active {
+    background-color: #00b5ad !important;
+    color: #fff !important;
+}
+
+/* Sidebar */
+.ui.sidebar {
+    z-index: 1000;
+}
