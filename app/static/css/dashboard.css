@@ -1,132 +1,204 @@
+/* ================================
+   GERAL
+================================ */
 body {
-    background-color: #f9f9f9;
-}
-
-.ui.container {
-    margin-top: 30px;
-}
-
-/* Cabeçalho */
-.header-container {
+    background-color: #f9f9f9; /* Fundo neutro */
+  }
+  
+  .ui.container {
+    margin-top: 30px; /* Espaçamento superior */
+  }
+  
+  /* ================================
+     CABEÇALHO
+  ================================ */
+  .header-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #ffffff;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-.header-container h3 {
-    font-size: 1.8rem;
-    color: #00b5ad;
+    justify-content: space-between; /* Espaça os elementos uniformemente */
+    align-items: center; /* Alinha os elementos verticalmente */
+    background: #ffffff; /* Fundo branco */
+    padding: 15px 20px; /* Espaçamento interno */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-bottom: 30px; /* Espaçamento inferior */
+  }
+  
+  .header-container h3 {
+    font-size: 1.8rem; /* Tamanho da fonte */
+    color: #00b5ad; /* Azul profissional */
     display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.header-container .user-info {
+    align-items: center; /* Centraliza verticalmente */
+    gap: 10px; /* Espaçamento entre ícone e texto */
+  }
+  
+  /* Ícone próximo ao nome */
+  .header-container .user-info {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
+    align-items: center; /* Centraliza verticalmente */
+    gap: 10px; /* Espaçamento entre ícone e texto */
+    font-size: 1rem; /* Tamanho da fonte */
+    color: #333; /* Cor neutra para o texto */
+  }
+  
+  .header-container .user-info i {
+    font-size: 1.5rem; /* Aumenta o tamanho do ícone */
+    color: #f39c12; /* Amarelo para o ícone próximo ao nome */
+    vertical-align: middle; /* Alinha com o texto */
+  }
+  
+  /* ================================
+     BOTÃO SAIR
+  ================================ */
+  .header-container .logout-btn {
+    background-color: #e74c3c; /* Vermelho para ação crítica */
+    color: #fff; /* Texto branco */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    text-decoration: none; /* Remove sublinhado */
+    font-weight: bold; /* Texto em negrito */
+    display: flex; /* Layout flexível */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    gap: 10px; /* Espaçamento entre ícone e texto */
+    font-size: 1.1rem; /* Tamanho do texto */
+    transition: background-color 0.3s ease; /* Animação suave */
+  }
+  
+  .header-container .logout-btn:hover {
+    background-color: #c0392b; /* Vermelho mais escuro ao passar o mouse */
+  }
+  
+  /* Ícone do botão "Sair" */
+  .header-container .logout-btn i {
+    font-size: 1.3rem; /* Tamanho maior para o ícone */
+    color: #fff; /* Ícone branco */
+  }
+  
+  /* ================================
+     CARDS
+  ================================ */
+  
+  /* Contêiner dos Cards */
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebra de linha */
+    justify-content: space-around; /* Espaça uniformemente os cards */
+    gap: 20px; /* Espaçamento entre os cards */
+  }
+  
+  /* Estilo dos Cards */
+  .ui.card {
+    flex: 1 1 calc(25% - 20px); /* Tamanho responsivo dos cards */
+    max-width: 300px; /* Largura máxima */
+    background: #ffffff; /* Fundo branco */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animação suave */
+    display: flex;
+    flex-direction: column; /* Layout vertical */
+    text-align: center; /* Texto centralizado */
+    padding: 40px 20px; /* Espaçamento interno */
+    margin: 0; /* Remove margens */
+  }
+  
+  .ui.card:hover {
+    transform: translateY(-5px); /* Efeito de flutuar ao passar o mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais forte */
+  }
+  
+  /* Ícones do Card */
+  .icon-container i {
+    font-size: 4rem !important; /* Tamanho maior dos ícones */
+  }
+  
+  /* Cores específicas para os ícones dos cards */
+  .btn-clientes .icon-container i {
+    color: #3498db !important; /* Azul claro para "Ver Clientes" */
+  }
+  
+  .btn-pendencias .icon-container i {
+    color: #27ae60 !important; /* Verde para "Pendências" */
+  }
+  
+  .btn-relatorios .icon-container i {
+    color: #f1c40f !important; /* Amarelo para "Relatórios" */
+  }
+  
+  .btn-configuracoes .icon-container i {
+    color: #9b59b6 !important; /* Roxo para "Configurações" */
+  }
+  
+  /* Título do Card */
+  .ui.card .header {
+    font-size: 1.6rem; /* Maior destaque */
+    font-weight: bold;
     color: #333;
-}
-
-.header-container .user-info i {
-    color: #00b5ad;
-}
-
-.header-container .logout-btn {
-    background-color: #00b5ad;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    margin-bottom: 10px; /* Espaçamento inferior */
+  }
+  
+  /* Descrição do Card */
+  .ui.card .description {
+    font-size: 1.2rem; /* Tamanho maior */
+    color: #666; /* Texto secundário */
+    margin-bottom: 20px; /* Espaçamento inferior */
+    flex-grow: 1; /* Ocupa o espaço disponível */
+  }
+  
+  /* Botões de Ação */
+  .ui.card .action-btn {
+    padding: 12px 20px; /* Botões maiores */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 1.2rem; /* Texto maior */
+    font-weight: bold; /* Negrito */
+    text-decoration: none; /* Remove sublinhado */
+    transition: background-color 0.3s; /* Animação suave */
+    color: #fff; /* Texto sempre branco */
     display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.header-container .logout-btn:hover {
-    background-color: #008d87;
-}
-
-.header-container .logout-btn i {
-    color: #fff !important; /* Define a cor do ícone para corresponder ao texto */
-}
-
-/* Cards Container */
-.cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-}
-
-/* Cards */
-.ui.card {
-    flex: 1 1 calc(25% - 20px);
-    max-width: 300px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 40px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-.ui.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.ui.card .icon-container {
-    font-size: 3rem;
-    color: #00b5ad;
-    margin-bottom: 15px;
-}
-
-.ui.card .header {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.ui.card .description {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-.ui.card .action-btn {
-    background-color: #00b5ad;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-.ui.card .action-btn:hover {
-    background-color: #008d87;
-}
-
-/* Rodapé */
-.footer {
-    margin-top: 40px;
-    text-align: center;
-    color: #666;
-    font-size: 0.9rem;
-}
+    align-items: center; /* Centraliza ícone e texto */
+    justify-content: center; /* Centraliza horizontalmente */
+    gap: 8px; /* Espaçamento entre ícone e texto */
+  }
+  
+  /* Botões com cores específicas */
+  .action-btn.btn-clientes {
+    background-color: #3498db; /* Azul claro */
+  }
+  
+  .action-btn.btn-clientes:hover {
+    background-color: #2980b9; /* Azul escuro */
+  }
+  
+  .action-btn.btn-pendencias {
+    background-color: #27ae60; /* Verde */
+  }
+  
+  .action-btn.btn-pendencias:hover {
+    background-color: #1e8449; /* Verde mais escuro */
+  }
+  
+  .action-btn.btn-relatorios {
+    background-color: #f1c40f; /* Amarelo */
+  }
+  
+  .action-btn.btn-relatorios:hover {
+    background-color: #d4ac0d; /* Amarelo escuro */
+  }
+  
+  .action-btn.btn-configuracoes {
+    background-color: #9b59b6; /* Roxo */
+  }
+  
+  .action-btn.btn-configuracoes:hover {
+    background-color: #7d3c98; /* Roxo mais escuro */
+  }
+  
+  /* ================================
+     RODAPÉ
+  ================================ */
+  .footer {
+    margin-top: 40px; /* Espaçamento superior */
+    text-align: center; /* Texto centralizado */
+    color: #666; /* Texto secundário */
+    font-size: 0.9rem; /* Tamanho da fonte */
+  }
+  

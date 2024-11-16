@@ -24,7 +24,7 @@
             <div class="user-info">
                 <i class="user circle icon"></i> Bem-vindo, {{ user }}
                 <a href="/logout" class="logout-btn">
-                    <i class="sign-out icon"></i> Sair
+                    <i class="sign-out icon sair"></i> Sair
                 </a>
             </div>
         </div>
@@ -32,7 +32,7 @@
         <!-- Cards -->
         <div class="cards-container">
             <!-- Card: Clientes -->
-            <div class="ui card">
+            <div class="ui card btn-clientes">
                 <div class="icon-container">
                     <i class="users icon"></i>
                 </div>
@@ -40,13 +40,13 @@
                 <div class="description">
                     Gerencie seus clientes cadastrados.
                 </div>
-                <a href="{{ url_for('clientes.clientes_page') }}" class="action-btn">
+                <a href="{{ url_for('clientes.clientes_page') }}" class="action-btn btn-clientes">
                     <i class="eye icon"></i> Ver Clientes
                 </a>
             </div>
-
+        
             <!-- Card: Pendências -->
-            <div class="ui card">
+            <div class="ui card btn-pendencias">
                 <div class="icon-container">
                     <i class="file alternate icon"></i>
                 </div>
@@ -54,13 +54,13 @@
                 <div class="description">
                     Controle de pendências financeiras.
                 </div>
-                <a href="/pendencias" class="action-btn">
+                <a href="/pendencias" class="action-btn btn-pendencias">
                     <i class="list icon"></i> Ver Pendências
                 </a>
             </div>
-
+        
             <!-- Card: Relatórios -->
-            <div class="ui card">
+            <div class="ui card btn-relatorios">
                 <div class="icon-container">
                     <i class="chart pie icon"></i>
                 </div>
@@ -68,13 +68,13 @@
                 <div class="description">
                     Gere relatórios detalhados para análise e acompanhamento.
                 </div>
-                <a href="/relatorios" class="action-btn">
+                <a href="/relatorios" class="action-btn btn-relatorios">
                     <i class="chart bar icon"></i> Ver Relatórios
                 </a>
             </div>
-
+        
             <!-- Card: Configurações -->
-            <div class="ui card">
+            <div class="ui card btn-configuracoes">
                 <div class="icon-container">
                     <i class="cog icon"></i>
                 </div>
@@ -82,10 +82,12 @@
                 <div class="description">
                     Personalize opções e ajuste parâmetros do sistema.
                 </div>
-                <a href="/configuracoes" class="action-btn">
+                <a href="/configuracoes" class="action-btn btn-configuracoes">
                     <i class="cog icon"></i> Configurações
                 </a>
             </div>
+        </div>
+        
         </div>
 
         <!-- Rodapé -->
