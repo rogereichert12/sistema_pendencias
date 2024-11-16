@@ -13,6 +13,7 @@ from app.config import Config
 # Blueprint para as rotas de clientes
 cliente_blueprint = Blueprint("clientes", __name__, url_prefix="/clientes")
 
+
 # ========================
 # ROTA: Renderizar Página de Clientes
 # ========================
@@ -20,10 +21,10 @@ cliente_blueprint = Blueprint("clientes", __name__, url_prefix="/clientes")
 def clientes_page():
     """
     Renderiza a página HTML de clientes.
-    
+
     Requisitos:
     - O usuário deve estar autenticado (checar a sessão 'user').
-    
+
     Redireciona para a página de login caso a sessão esteja vazia.
     """
     if "user" in session:
@@ -38,7 +39,7 @@ def clientes_page():
 def clientes_list():
     """
     Retorna a lista de clientes como JSON.
-    
+
     A lista inclui:
     - ID
     - Nome do aluno
@@ -46,9 +47,9 @@ def clientes_list():
     - Telefone
     - CPF
     - Status (Ativo/Inativo)
-    
+
     Método:
-    - SELECT na tabela 'clientes'
+    - SELECT na tabela 'clientes'.
     """
     conn = get_db_connection(Config.DB_CONFIG)
     cursor = conn.cursor(dictionary=True)
@@ -70,16 +71,16 @@ def clientes_list():
 def clientes_add():
     """
     Adiciona um novo cliente no banco de dados.
-    
+
     Dados esperados no JSON:
     - aluno: Nome do aluno
     - responsavel: Nome do responsável
     - telefone: Número de telefone
     - cpf: CPF do cliente
-    
+
     Padrão:
     - O status inicial do cliente será "Ativo".
-    
+
     Retorna:
     - Sucesso (201) ou erro (500).
     """
@@ -114,10 +115,10 @@ def clientes_add():
 def clientes_get(id):
     """
     Retorna os dados de um cliente específico pelo ID.
-    
+
     Parâmetro:
-    - id: ID do cliente (int)
-    
+    - id: ID do cliente (int).
+
     Retorna:
     - JSON com os dados do cliente ou erro (404/500).
     """
@@ -144,14 +145,14 @@ def clientes_get(id):
 def clientes_edit(id):
     """
     Atualiza as informações de um cliente existente pelo ID.
-    
+
     Dados esperados no JSON:
     - aluno: Nome do aluno
     - responsavel: Nome do responsável
     - telefone: Número de telefone
     - cpf: CPF do cliente
     - status (opcional): Status do cliente (Ativo/Inativo)
-    
+
     Retorna:
     - Sucesso (200) ou erro (500).
     """
@@ -171,15 +172,49 @@ def clientes_edit(id):
                 data.get("responsavel"),
                 data.get("telefone"),
                 data.get("cpf"),
-                data.get("status", "Ativo"),  # Caso não tenha status, define como "Ativo"
+                data.get(
+                    "status", "Ativo"
+                ),  # Caso não tenha status, define como "Ativo"
                 id,
             ),
         )
         conn.commit()
-        return jsonify({"success": True, "message": "Cliente atualizado com sucesso!"}), 200
+        return (
+            jsonify({"success": True, "message": "Cliente atualizado com sucesso!"}),
+            200,
+        )
     except Exception as err:
-        return jsonify({"success": False, "message": f"Erro ao atualizar cliente: {err}"}), 500
+        return (
+            jsonify({"success": False, "message": f"Erro ao atualizar cliente: {err}"}),
+            500,
+        )
     finally:
         cursor.close()
         close_db_connection(conn)
 
+
+# ========================
+# ROTA: Excluir Cliente
+# ========================
+@cliente_blueprint.route("/delete/<int:id>", methods=["DELETE"])
+def clientes_delete(id):
+    """
+    Remove um cliente do banco de dados pelo ID.
+
+    Parâmetro:
+    - id: ID do cliente (int).
+
+    Retorna:
+    - Sucesso (204 - Sem Conteúdo) ou erro (500).
+    """
+    conn = get_db_connection(Config.DB_CONFIG)
+    cursor = conn.cursor()
+    try:
+        cursor.execute("DELETE FROM clientes WHERE id = %s", (id,))
+        conn.commit()
+        return "", 204  # Retorna status HTTP 204 (Sem Conteúdo)
+    except Exception as err:
+        return jsonify({"error": f"Erro ao excluir cliente: {err}"}), 500
+    finally:
+        cursor.close()
+        close_db_connection(conn)

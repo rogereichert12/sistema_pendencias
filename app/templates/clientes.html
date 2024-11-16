@@ -14,8 +14,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <!-- SweetAlert2 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/static/css/clientes.css" />
+    <link rel="stylesheet" href="../static/css/clientes.css" />
   </head>
   <body>
     <!-- Barra Lateral -->
@@ -54,29 +62,29 @@
           </div>
         </div>
 
-        <!-- Barra de Pesquisa -->
-        <div class="search-bar">
-          <div class="ui icon input">
-            <input
-              type="text"
-              id="search-client"
-              placeholder="Pesquisar cliente..."
-            />
-            <i class="search icon"></i>
+        <!-- Botões de Exportação e Barra de Pesquisa -->
+        <div class="export-and-search">
+          <div class="export-buttons">
+            <a href="/clientes/export/csv" class="ui teal button csv"
+              ><i class="file csv icon"></i> Exportar CSV</a
+            >
+            <a href="/clientes/export/excel" class="ui teal button excel"
+              ><i class="file excel icon"></i> Exportar Excel</a
+            >
+            <a href="/clientes/export/pdf" class="ui teal button pdf"
+              ><i class="file pdf icon"></i> Exportar PDF</a
+            >
           </div>
-        </div>
-
-        <!-- Botões de Exportação -->
-        <div class="export-buttons">
-          <a href="/clientes/export/csv" class="ui teal button"
-            ><i class="file csv icon"></i> Exportar CSV</a
-          >
-          <a href="/clientes/export/excel" class="ui teal button"
-            ><i class="file excel icon"></i> Exportar Excel</a
-          >
-          <a href="/clientes/export/pdf" class="ui teal button"
-            ><i class="file pdf icon"></i> Exportar PDF</a
-          >
+          <div class="search-bar">
+            <div class="ui icon input">
+              <input
+                type="text"
+                id="search-client"
+                placeholder="Pesquisar cliente..."
+              />
+              <i class="search icon"></i>
+            </div>
+          </div>
         </div>
 
         <!-- Mensagem de Nenhum Cliente Encontrado -->

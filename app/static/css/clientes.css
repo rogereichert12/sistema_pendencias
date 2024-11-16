@@ -1,86 +1,259 @@
-/* Global Styles */
+/* ================================
+   GERAL
+================================ */
 body {
-    background-color: #f9f9f9;
+  background: linear-gradient(135deg, #f3f4f6, #e8eaf0); /* Gradiente suave */
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333; /* Cor padrão para texto */
 }
 
-/* Header Section */
+/* ================================
+   CONTAINER PRINCIPAL
+================================ */
+.ui.container {
+  background: #ffffff; /* Fundo branco para o conteúdo principal */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para destaque */
+  padding: 20px;
+}
+
+/* ================================
+   CABEÇALHO
+================================ */
 .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #ffffff;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para separar o cabeçalho */
+  margin-bottom: 30px;
+  margin-top: 10px; /* Pequeno espaçamento superior */
 }
 
 .page-header h3 {
-    font-size: 1.8rem;
-    color: #00b5ad;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  font-size: 1.8rem;
+  color: #00b5ad; /* Cor destacada */
+  margin: 0;
 }
 
-/* Search Bar */
-.search-bar {
-    margin: 20px 0 15px;
-    display: flex;
-    justify-content: center;
+.page-header .ui.teal.button {
+  background-color: #007bff; /* Azul padrão profissional */
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
 }
 
-.search-bar .ui.input {
-    width: 60%;
+.page-header .ui.teal.button:hover {
+  background-color: #0056b3; /* Azul escuro ao passar o mouse */
 }
 
-/* Export Buttons */
+.page-header .ui.button {
+  background-color: #6c757d; /* Cinza profissional para o botão "Menu" */
+  color: #fff;
+}
+
+.page-header .ui.button:hover {
+  background-color: #5a6268;
+}
+
+/* ================================
+   ALINHAMENTO DE EXPORTAÇÃO E PESQUISA
+================================ */
+/* Contêiner para agrupar botões de exportação e barra de pesquisa */
+.export-and-search {
+  display: flex;
+  justify-content: space-between; /* Alinha exportação e pesquisa em lados opostos */
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .export-buttons {
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
 }
 
-/* Table Styles */
-.ui.table {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 0.85rem;
+/* Barra de pesquisa com largura fixa */
+.search-bar {
+  display: flex;
+  align-items: center;
 }
 
-.ui.table th {
-    background-color: #00b5ad;
-    color: #fff;
-    text-align: center;
-    padding: 8px;
+.ui.icon.input {
+  width: 400px; /* Largura da barra de pesquisa */
 }
 
-.ui.table td {
-    text-align: center;
-    padding: 6px 8px;
+/* ================================
+   BOTÕES DE EXPORTAÇÃO
+================================ */
+.export-buttons .ui.button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
 }
 
-/* Pagination */
+/* Cores específicas para cada tipo de exportação */
+.csv {
+  background-color: #007bff !important; /* Azul para CSV */
+}
+
+.csv:hover {
+  background-color: #0056b3 !important;
+}
+
+.excel {
+  background-color: #2d9c3c !important; /* Verde Excel */
+}
+
+.excel:hover {
+  background-color: #237d32 !important;
+}
+
+.pdf {
+  background-color: #d9534f !important; /* Vermelho PDF */
+  color: #fff !important;
+}
+
+.pdf:hover {
+  background-color: #c9302c !important;
+}
+
+/* ================================
+   TABELA
+================================ */
+.table-container {
+  overflow-x: auto; /* Scroll horizontal para telas menores */
+}
+
+.ui.celled.table {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+  border-collapse: collapse;
+  overflow: hidden;
+  background: #ffffff; /* Mantém o fundo branco da tabela */
+}
+
+.ui.celled.table th {
+  background-color: #00b5ad; /* Cabeçalho com cor destacada */
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.ui.celled.table th:hover {
+  background-color: #009c8a; /* Cor ao passar o mouse */
+}
+
+.ui.celled.table td {
+  text-align: center;
+  padding: 12px;
+  font-size: 0.95rem;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+.ui.celled.table tr:hover {
+  background-color: #f5f5f5; /* Suave destaque ao passar o mouse */
+}
+
+.ui.celled.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ================================
+   BOTÕES DE AÇÕES
+================================ */
+.ui.table .edit-btn {
+  background-color: #ffc107; /* Amarelo empresarial */
+  color: #fff;
+  font-weight: bold;
+}
+
+.ui.table .edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.ui.table .delete-btn {
+  background-color: #dc3545; /* Vermelho profissional */
+  color: #fff;
+  font-weight: bold;
+}
+
+.ui.table .delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* ================================
+   MENSAGEM DE NENHUM CLIENTE ENCONTRADO
+================================ */
+.ui.warning.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  font-size: 1.1rem;
+  background-color: #ffe6cc;
+  color: #cc6600;
+  border: 1px solid #ffcc99;
+  border-radius: 5px;
+}
+
+/* ================================
+   PAGINAÇÃO
+================================ */
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .pagination .ui.button {
-    margin: 0 5px;
-    font-size: 0.8rem;
-    padding: 5px 10px;
-    border-radius: 5px;
+  margin: 0 5px;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 5px;
 }
 
 .pagination .ui.button.active {
-    background-color: #00b5ad !important;
-    color: #fff !important;
+  background-color: #00b5ad !important;
+  color: #fff !important;
+  font-weight: bold;
 }
 
-/* Sidebar */
-.ui.sidebar {
-    z-index: 1000;
+/* ================================
+   MODAL
+================================ */
+.ui.modal {
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.ui.modal .header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00b5ad;
+}
+
+.ui.modal .content .field {
+  margin-bottom: 15px;
+}
+
+.ui.modal .ui.teal.button {
+  background-color: #007bff; /* Azul padrão para salvar */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.ui.modal .ui.teal.button:hover {
+  background-color: #0056b3;
 }
