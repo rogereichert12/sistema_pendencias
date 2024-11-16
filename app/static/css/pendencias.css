@@ -109,3 +109,33 @@ body {
     font-size: 1.5rem;
     color: #00b5ad;
 }
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .page-header h3 {
+    font-size: 1.8rem;
+    color: #00b5ad;
+    margin: 0;
+  }
+  
+  .page-header .ui.button {
+    margin-left: 10px;
+  }
+  
+  .ui.modal {
+    border-radius: 10px;
+  }
+  
+  .ui.form .field label {
+    font-weight: bold;
+  }
+  
