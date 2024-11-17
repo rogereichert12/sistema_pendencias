@@ -139,3 +139,14 @@ body {
     font-weight: bold;
   }
   
+  #produtos-table {
+    margin-bottom: 20px;
+  }
+  
+  #total-valor {
+    font-weight: bold;
+    background-color: #f9f9f9;
+    border: none;
+    padding: 10px;
+  }
+  

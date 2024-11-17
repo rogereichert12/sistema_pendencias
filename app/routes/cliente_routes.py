@@ -13,7 +13,6 @@ from app.config import Config
 # Blueprint para as rotas de clientes
 cliente_blueprint = Blueprint("clientes", __name__, url_prefix="/clientes")
 
-
 # ========================
 # ROTA: Renderizar Página de Clientes
 # ========================
@@ -30,7 +29,6 @@ def clientes_page():
     if "user" in session:
         return render_template("clientes.html")
     return redirect(url_for("auth.login"))
-
 
 # ========================
 # ROTA: Listar Clientes
@@ -62,7 +60,6 @@ def clientes_list():
     finally:
         cursor.close()
         close_db_connection(conn)
-
 
 # ========================
 # ROTA: Adicionar Cliente
@@ -107,7 +104,6 @@ def clientes_add():
         cursor.close()
         close_db_connection(conn)
 
-
 # ========================
 # ROTA: Buscar Cliente Específico
 # ========================
@@ -136,7 +132,6 @@ def clientes_get(id):
     finally:
         cursor.close()
         close_db_connection(conn)
-
 
 # ========================
 # ROTA: Editar Cliente
@@ -191,7 +186,6 @@ def clientes_edit(id):
     finally:
         cursor.close()
         close_db_connection(conn)
-
 
 # ========================
 # ROTA: Excluir Cliente
