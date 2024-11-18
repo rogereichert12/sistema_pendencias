@@ -5,19 +5,26 @@
         - auth_routes.py
         - cliente_routes.py
         - dashboard_routes.py
+        - produtos_routes.py
         - export_routes.py
         - models.py
     - static
         - css
-            - styles.js
+            - clientes.js
+            - dashboard.css
+            - login.css
+            - pendencias.css
         - img
         - js
-            - scripts.js
+            - clientes.js
+            - login.js
+            - pendencias.js
     - templates
         - clientes.html
         - dashboard.html
         - index.html
         - login.html
+        - pendencias.html
     - tests
     - __init.py
     - .env

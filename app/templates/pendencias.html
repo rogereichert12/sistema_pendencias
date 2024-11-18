@@ -51,9 +51,18 @@
         <!-- Cabeçalho -->
         <div class="page-header">
           <h3><i class="file alternate icon"></i> Pendências</h3>
-          <button class="ui button" id="toggle-sidebar">
-            <i class="bars icon"></i> Menu
-          </button>
+          <div>
+            <select id="select-cliente" class="ui dropdown" style="min-width: 200px;">
+              <option value="">Selecione um cliente</option>
+              <!-- Clientes serão carregados dinamicamente -->
+            </select>
+            <button class="ui teal button" id="gerar-relatorio-btn" style="margin-left: 10px;">
+              <i class="file pdf icon"></i> Consolidar Pendências
+            </button>
+            <button class="ui button" id="toggle-sidebar" style="margin-left: 10px;">
+              <i class="bars icon"></i> Menu
+            </button>
+          </div>
         </div>
 
         <!-- Abas -->

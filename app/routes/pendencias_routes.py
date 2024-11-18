@@ -13,6 +13,35 @@ def pendencias_page():
         "pendencias.html"
     )  # Certifique-se de que pendencias.html existe na pasta templates
 
+@pendencias_blueprint.route("/relatorio/<int:cliente_id>", methods=["GET"])
+def gerar_relatorio(cliente_id):
+    conn = get_db_connection(Config.DB_CONFIG)
+    cursor = conn.cursor(dictionary=True)
+    try:
+        # Obter as pendências do cliente
+        cursor.execute(
+            """
+            SELECT p.id, p.data, p.valor, pp.produto_id, pp.quantidade, prod.descricao, prod.preco
+            FROM pendencias AS p
+            INNER JOIN pendencias_produtos AS pp ON p.id = pp.pendencia_id
+            INNER JOIN produtos AS prod ON pp.produto_id = prod.id
+            WHERE p.cliente_id = %s
+        """,
+            (cliente_id,),
+        )
+        pendencias = cursor.fetchall()
+
+        if not pendencias:
+            return jsonify({"error": "Nenhuma pendência encontrada para o cliente."}), 404
+
+        # Retornar os dados em JSON para o frontend processar ou gerar PDF
+        return jsonify({"success": True, "pendencias": pendencias})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        close_db_connection(conn)
+
 
 @pendencias_blueprint.route("/add", methods=["POST"])
 def add_pendencia():
