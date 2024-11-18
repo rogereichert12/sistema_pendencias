@@ -54,7 +54,6 @@ def gerar_relatorio(cliente_id):
         close_db_connection(conn)
 
 
-
 @pendencias_blueprint.route("/clientes/pendentes", methods=["GET"])
 def listar_clientes_com_pendencias():
     """
@@ -69,8 +68,8 @@ def listar_clientes_com_pendencias():
             SELECT DISTINCT c.id, c.aluno AS nome
             FROM clientes c
             INNER JOIN pendencias p ON c.id = p.cliente_id
-            WHERE p.valor > 0
-        """
+            WHERE p.status = 'Pendente';
+            """
         )
         clientes = cursor.fetchall()
 
