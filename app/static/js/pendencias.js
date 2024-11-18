@@ -251,6 +251,7 @@ $(document).ready(function () {
             produtosSelecionados = [];
             atualizarListaProdutos(); // Limpa produtos
             carregarPendencias(); // Atualiza tabela
+            carregarClientesComPendencias(); // Atualiza o combobox de clentes com pendências
           } else {
             Swal.fire({
               icon: "error",
@@ -265,8 +266,9 @@ $(document).ready(function () {
     // Inicialização
     // ============================
     $(document).on("click", "#gerar-relatorio-btn", function () {
-        const clienteId = $("#select-cliente").val(); // Obtém o cliente selecionado
-      
+        const clienteId = $("#select-cliente-pendente").val(); // Obtém o cliente selecionado
+        const clienteNome = $("#select-cliente-pendente option:selected").text(); // Obtém o nome do cliente
+        
         if (!clienteId) {
           Swal.fire({
             icon: "warning",
@@ -280,20 +282,23 @@ $(document).ready(function () {
         fetch(`/pendencias/relatorio/${clienteId}`)
           .then((response) => {
             if (!response.ok) {
-              throw new Error("Erro ao gerar o relatório.");
+              throw new Error("Erro ao buscar os dados do relatório.");
             }
             return response.json();
           })
           .then((data) => {
-            if (data.success) {
+            if (data.success && data.pendencias.length > 0) {
               const pendencias = data.pendencias;
+      
+              // Inicializar variável de soma total
+              let totalValor = 0;
       
               // Construção do conteúdo do relatório
               let conteudoRelatorio = `
-                <div style="width: 80mm; font-family: Arial, sans-serif; font-size: 12px; margin: 0 auto; padding: 10px;">
+                <div style="width: 80mm; font-family: Arial, sans-serif; font-size: 12px; margin: 0 auto;">
                   <h3 style="text-align: center;">Relatório de Pendências</h3>
-                  <p style="text-align: center;">Cliente ID: ${clienteId}</p>
-                  <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; margin-top: 10px;">
+                  <p style="text-align: center;">Cliente: ${clienteNome}</p>
+                  <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
                     <thead>
                       <tr>
                         <th style="border-bottom: 1px solid #000;">ID</th>
@@ -310,13 +315,16 @@ $(document).ready(function () {
                 const dataFormatada = new Date(pendencia.data).toLocaleDateString(
                   "pt-BR"
                 );
+                const subtotal = parseFloat(pendencia.preco).toFixed(2);
+                totalValor += parseFloat(pendencia.preco); // Somando ao total
+                
                 conteudoRelatorio += `
                   <tr>
                     <td>${pendencia.id}</td>
                     <td>${dataFormatada}</td>
                     <td>${pendencia.descricao}</td>
                     <td>${pendencia.quantidade}</td>
-                    <td>R$ ${parseFloat(pendencia.preco).toFixed(2)}</td>
+                    <td>R$ ${subtotal}</td>
                   </tr>
                 `;
               });
@@ -324,15 +332,23 @@ $(document).ready(function () {
               conteudoRelatorio += `
                     </tbody>
                   </table>
+                  <p style="text-align: right; font-size: 14px; font-weight: bold; margin-top: 10px;">
+                    Total: R$ ${totalValor.toFixed(2)}
+                  </p>
                 </div>
               `;
       
-              // Inserir o conteúdo do relatório em uma nova janela de impressão
-              const printWindow = window.open("", "_blank");
-              printWindow.document.write(`
+              // Criar um iframe invisível para impressão
+              const iframe = document.createElement("iframe");
+              iframe.style.position = "absolute";
+              iframe.style.top = "-9999px";
+              document.body.appendChild(iframe);
+      
+              const doc = iframe.contentDocument || iframe.contentWindow.document;
+              doc.open();
+              doc.write(`
                 <html>
                   <head>
-                    <title>ti</title>
                     <style>
                       body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
                       table { width: 100%; border-collapse: collapse; margin-top: 10px; }
@@ -341,17 +357,25 @@ $(document).ready(function () {
                       h3 { margin: 0; padding: 10px 0; text-align: center; }
                     </style>
                   </head>
-                  <body onload="window.print(); window.close();">
+                  <body>
                     ${conteudoRelatorio}
                   </body>
                 </html>
               `);
-              printWindow.document.close();
+              doc.close();
+      
+              // Inicia a impressão no iframe
+              iframe.contentWindow.focus();
+              iframe.contentWindow.print();
+      
+              // Remove o iframe após a impressão
+              document.body.removeChild(iframe);
             } else {
+              // Cliente não possui pendências
               Swal.fire({
-                icon: "error",
-                title: "Erro!",
-                text: "Nenhuma pendência encontrada para este cliente.",
+                icon: "info",
+                title: "Nenhuma Pendência",
+                text: `O cliente ${clienteNome} não possui pendências no momento.`,
               });
             }
           })
@@ -360,10 +384,11 @@ $(document).ready(function () {
             Swal.fire({
               icon: "error",
               title: "Erro!",
-              text: "Erro ao gerar o relatório.",
+              text: "Ocorreu um erro ao gerar o relatório. Tente novamente.",
             });
           });
       });
+      
       
       
   
@@ -406,12 +431,44 @@ $(document).ready(function () {
         });
     }
   
-    // ============================
-    // Gerar Relatório Consolidado
-    // ============================
-    
+    function carregarClientesComPendencias() {
+        fetch("/pendencias/clientes/pendentes") // Nova rota que retorna apenas clientes com pendências
+          .then((res) => {
+            if (!res.ok) throw new Error("Erro ao carregar clientes com pendências.");
+            return res.json();
+          })
+          .then((data) => {
+            const clienteDropdown = $("#select-cliente-pendente");
+            clienteDropdown.empty();
       
-    
+            if (data.clients && data.clients.length > 0) {
+              clienteDropdown.append(`<option value="">Selecione um cliente</option>`);
+              data.clients.forEach((cliente) => {
+                clienteDropdown.append(
+                  `<option value="${cliente.id}">${cliente.nome}</option>`
+                );
+              });
+              clienteDropdown.dropdown();
+            } else {
+              Swal.fire({
+                icon: "info",
+                title: "Nenhuma Pendência",
+                text: "Não há clientes com pendências no momento.",
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Erro ao carregar clientes com pendências:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Erro!",
+              text: "Não foi possível carregar os clientes com pendências. Verifique sua conexão.",
+            });
+          });
+      }
+
+      
+    carregarClientesComPendencias();
     carregarPendencias();
     carregarClientesCombo();
     carregarClientes();

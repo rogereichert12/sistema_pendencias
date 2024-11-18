@@ -13,6 +13,7 @@ def pendencias_page():
         "pendencias.html"
     )  # Certifique-se de que pendencias.html existe na pasta templates
 
+
 @pendencias_blueprint.route("/relatorio/<int:cliente_id>", methods=["GET"])
 def gerar_relatorio(cliente_id):
     conn = get_db_connection(Config.DB_CONFIG)
@@ -32,7 +33,10 @@ def gerar_relatorio(cliente_id):
         pendencias = cursor.fetchall()
 
         if not pendencias:
-            return jsonify({"error": "Nenhuma pendência encontrada para o cliente."}), 404
+            return (
+                jsonify({"error": "Nenhuma pendência encontrada para o cliente."}),
+                404,
+            )
 
         # Retornar os dados em JSON para o frontend processar ou gerar PDF
         return jsonify({"success": True, "pendencias": pendencias})
@@ -81,6 +85,45 @@ def add_pendencia():
     except Exception as e:
         print("Erro ao salvar pendência:", str(e))
         return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        close_db_connection(conn)
+
+
+@pendencias_blueprint.route("/clientes/pendentes", methods=["GET"])
+def listar_clientes_com_pendencias():
+    """
+    Rota para listar os clientes que possuem pendências
+    """
+    conn = get_db_connection(Config.DB_CONFIG)
+    cursor = conn.cursor(dictionary=True)
+    try:
+        # Consulta para buscar clientes que possuem pendências
+        cursor.execute(
+            """
+            SELECT DISTINCT c.id, c.aluno AS nome
+            FROM clientes c
+            INNER JOIN pendencias p ON c.id = p.cliente_id
+            WHERE p.valor > 0
+        """
+        )
+        clientes = cursor.fetchall()
+
+        # Se não houver clientes com pendências, retornar uma mensagem
+        if not clientes:
+            return (
+                jsonify(
+                    {
+                        "clients": [],
+                        "message": "Nenhum cliente com pendências encontrado.",
+                    }
+                ),
+                200,
+            )
+
+        return jsonify({"clients": clientes}), 200
+    except Exception as e:
+        return jsonify({"error": f"Erro ao buscar clientes com pendências: {e}"}), 500
     finally:
         cursor.close()
         close_db_connection(conn)
