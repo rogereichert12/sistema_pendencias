@@ -51,76 +51,87 @@
         <!-- Cabeçalho -->
         <div class="page-header">
           <h3><i class="file alternate icon"></i> Pendências</h3>
-          <div>
-            <button class="ui teal button" id="add-pendencia-btn">
-              <i class="plus icon"></i> Adicionar Pendência
-            </button>
-            <button class="ui button" id="toggle-sidebar">
-              <i class="bars icon"></i> Menu
-            </button>
+          <button class="ui button" id="toggle-sidebar">
+            <i class="bars icon"></i> Menu
+          </button>
+        </div>
+
+        <!-- Abas -->
+        <div class="ui top attached tabular menu">
+          <a class="item active" data-tab="pendencias-list">
+            <i class="list icon"></i> Visualizar Pendências
+          </a>
+          <a class="item" data-tab="pendencias-add">
+            <i class="plus icon"></i> Adicionar Pendência
+          </a>
+        </div>
+
+        <!-- Aba de Visualização -->
+        <div
+          class="ui bottom attached tab segment active"
+          data-tab="pendencias-list"
+        >
+          <!-- Mensagem de Nenhuma Pendência Encontrada -->
+          <div class="ui warning message hidden" id="no-pendencias-message">
+            <i class="warning circle icon"></i> Nenhuma pendência encontrada.
+          </div>
+
+          <!-- Tabela de Pendências -->
+          <div class="table-container">
+            <table class="ui celled table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Aluno</th>
+                  <th>Data</th>
+                  <th>Valor Total</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="pendencias-table-body">
+                <!-- As pendências serão carregadas dinamicamente -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Controles de Paginação -->
+          <div class="pagination" id="pagination-controls">
+            <!-- Botões de paginação serão adicionados dinamicamente -->
           </div>
         </div>
 
-        <!-- Mensagem de Nenhuma Pendência Encontrada -->
-        <div class="ui warning message hidden" id="no-pendencias-message">
-          <i class="warning circle icon"></i> Nenhuma pendência encontrada.
-        </div>
-
-        <!-- Tabela de Pendências -->
-        <div class="table-container">
-          <table class="ui celled table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Aluno</th>
-                <th>Data</th>
-                <th>Valor Total</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="pendencias-table-body">
-              <!-- As pendências serão carregadas dinamicamente -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Controles de Paginação -->
-        <div class="pagination" id="pagination-controls">
-          <!-- Botões de paginação serão adicionados dinamicamente -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal para Adicionar/Editar Pendência -->
-    <!-- Modal para Adicionar/Editar Pendência -->
-    <div class="ui modal" id="pendencia-modal">
-      <i class="close icon"></i>
-      <div class="header">Adicionar Pendência</div>
-      <div class="content">
-        <form id="pendencia-form" class="ui form">
-          <div class="field">
-            <label for="cliente-id">Cliente</label>
-            <select id="cliente-id" class="ui dropdown"></select>
-          </div>
-          <div class="field">
-            <label for="data">Data</label>
-            <input type="date" id="data" required />
-          </div>
-          <div class="field">
-            <label>Produtos</label>
-            <div id="produtos-list-container">
-              <!-- Produtos adicionados dinamicamente -->
+        <!-- Aba de Cadastro -->
+        <div class="ui bottom attached tab segment" data-tab="pendencias-add">
+          <form id="pendencia-form" class="ui form">
+            <div class="field">
+              <label for="cliente-id">Cliente</label>
+              <select id="cliente-id" class="ui dropdown"></select>
             </div>
-            <button class="ui teal button" id="add-produto-btn" type="button">
-              <i class="plus icon"></i> Adicionar Produto
-            </button>
-          </div>
-          <div class="field">
-            <label>Total</label>
-            <input type="text" id="total-valor" readonly />
-          </div>
-          <button type="submit" class="ui teal button">Salvar</button>
-        </form>
+            <div class="field">
+              <label for="data">Data</label>
+              <input type="date" id="data" required />
+            </div>
+            <div class="field">
+              <label>Produtos</label>
+              <div id="produtos-list-container">
+                <!-- Produtos adicionados dinamicamente -->
+              </div>
+              <button
+                class="ui teal button"
+                id="add-produto-btn"
+                type="button"
+                style="margin-top: 10px"
+              >
+                <i class="plus icon"></i> Adicionar Produto
+              </button>
+            </div>
+            <div class="field">
+              <label>Total</label>
+              <input type="text" id="total-valor" readonly />
+            </div>
+            <button type="submit" class="ui teal button">Salvar</button>
+          </form>
+        </div>
       </div>
     </div>
 
@@ -129,5 +140,15 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/static/js/pendencias.js"></script>
+    <script>
+      // Inicializar as abas
+      $(".menu .item").tab();
+
+      // Inicializar a sidebar
+      $(".ui.sidebar").sidebar({ transition: "overlay" });
+      $("#toggle-sidebar").on("click", function () {
+        $(".ui.sidebar").sidebar("toggle");
+      });
+    </script>
   </body>
 </html>
