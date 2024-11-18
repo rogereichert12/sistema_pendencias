@@ -2,145 +2,192 @@
    GERAL
 ================================ */
 body {
-    background-color: #f9f9f9;
-}
-
-.ui.container {
-    margin-top: 30px;
-}
-
-/* ================================
-   CABEÇALHO
-================================ */
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #ffffff;
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-.header-container h3 {
-    font-size: 1.8rem;
-    color: #00b5ad;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.header-container .user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
+    background: linear-gradient(135deg, #f3f4f6, #e8eaf0); /* Gradiente suave */
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
     color: #333;
-}
-
-.header-container .logout-btn {
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.header-container .logout-btn:hover {
-    background-color: #c0392b;
-}
-
-/* ================================
-   BOTÕES E AÇÕES
-================================ */
-.action-container {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-#add-pendencia-btn {
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 10px 15px;
-}
-
-/* ================================
-   TABELA
-================================ */
-.table-container {
-    margin-top: 20px;
-    overflow-x: auto;
-}
-
-.ui.celled.table {
+  }
+  
+  .ui.container {
+    background: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.ui.celled.table th {
-    background-color: #00b5ad;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-weight: bold;
-}
-
-.ui.celled.table td {
-    text-align: center;
-    padding: 12px;
-}
-
-/* ================================
-   MODAL
-================================ */
-.ui.modal {
-    border-radius: 10px;
-    padding: 15px;
-}
-
-.ui.modal .header {
-    font-size: 1.5rem;
-    color: #00b5ad;
-}
-
-.page-header {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px;
+  }
+  
+  /* ================================
+     CABEÇALHO
+  ================================ */
+  .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #ffffff;
     padding: 15px 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
     margin-bottom: 30px;
   }
   
   .page-header h3 {
     font-size: 1.8rem;
-    color: #00b5ad;
+    color: #00b5ad; /* Cor destacada */
     margin: 0;
   }
   
+  .page-header .ui.teal.button {
+    background-color: #007bff; /* Azul padrão */
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+  }
+  
+  .page-header .ui.teal.button:hover {
+    background-color: #0056b3;
+  }
+  
   .page-header .ui.button {
-    margin-left: 10px;
+    background-color: #6c757d;
+    color: #fff;
   }
   
-  .ui.modal {
+  .page-header .ui.button:hover {
+    background-color: #5a6268;
+  }
+  
+  /* ================================
+     BOTÕES E AÇÕES
+  ================================ */
+  .action-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  #add-pendencia-btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #00b5ad;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  #add-pendencia-btn:hover {
+    background-color: #009c8a;
+  }
+  
+  /* ================================
+     TABELA
+  ================================ */
+  .table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .ui.celled.table {
+    width: 100%;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-collapse: collapse;
+    overflow: hidden;
   }
   
-  .ui.form .field label {
+  .ui.celled.table th {
+    background-color: #00b5ad; /* Cabeçalho destacado */
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .ui.celled.table th:hover {
+    background-color: #009c8a;
+  }
+  
+  .ui.celled.table td {
+    text-align: center;
+    padding: 12px;
+    font-size: 0.95rem;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .ui.celled.table tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .ui.celled.table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  /* ================================
+     BOTÕES DE AÇÕES NA TABELA
+  ================================ */
+  .ui.table .visualizar-pendencia {
+    background-color: #17a2b8; /* Azul claro */
+    color: #fff;
     font-weight: bold;
   }
   
+  .ui.table .visualizar-pendencia:hover {
+    background-color: #138496;
+  }
+  
+  .ui.table .excluir-pendencia {
+    background-color: #dc3545; /* Vermelho */
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .ui.table .excluir-pendencia:hover {
+    background-color: #c82333;
+  }
+  
+  /* ================================
+     MODAL
+  ================================ */
+  .ui.modal {
+    border-radius: 10px;
+    padding: 15px;
+  }
+  
+  .ui.modal .header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00b5ad;
+  }
+  
+  .ui.modal .content .field {
+    margin-bottom: 15px;
+  }
+  
+  .ui.modal .ui.teal.button {
+    background-color: #007bff; /* Azul padrão */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .ui.modal .ui.teal.button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* ================================
+     FORMULÁRIO DE PRODUTOS
+  ================================ */
   #produtos-table {
     margin-bottom: 20px;
+  }
+  
+  #produtos-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    color: #333;
   }
   
   #total-valor {
@@ -148,5 +195,48 @@ body {
     background-color: #f9f9f9;
     border: none;
     padding: 10px;
+    text-align: center;
+  }
+  
+  /* ================================
+     MENSAGEM DE NENHUMA PENDÊNCIA
+  ================================ */
+  .ui.warning.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    font-size: 1.1rem;
+    background-color: #ffe6cc;
+    color: #cc6600;
+    border: 1px solid #ffcc99;
+    border-radius: 5px;
+    margin-top: 15px;
+  }
+  
+  /* ================================
+     PAGINAÇÃO
+  ================================ */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination .ui.button {
+    margin: 0 5px;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 5px;
+  }
+  
+  .pagination .ui.button.active {
+    background-color: #00b5ad !important;
+    color: #fff !important;
+    font-weight: bold;
+  }
+
+  #add-produto-btn {
+    margin-top: 15px; /* Define o espaçamento superior */
   }
   
