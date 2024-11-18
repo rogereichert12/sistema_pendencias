@@ -19,15 +19,22 @@ def gerar_relatorio(cliente_id):
     conn = get_db_connection(Config.DB_CONFIG)
     cursor = conn.cursor(dictionary=True)
     try:
-        # Obter as pendências do cliente
+        # Obter as pendências do cliente com status 'Pendente'
         cursor.execute(
             """
-            SELECT p.id, p.data, p.valor, pp.produto_id, pp.quantidade, prod.descricao, prod.preco
+            SELECT 
+                p.id AS pendencia_id, 
+                p.data, 
+                pp.produto_id, 
+                pp.quantidade, 
+                prod.descricao, 
+                prod.preco AS preco_unitario, -- Renomeado para deixar claro
+                (pp.quantidade * prod.preco) AS subtotal
             FROM pendencias AS p
             INNER JOIN pendencias_produtos AS pp ON p.id = pp.pendencia_id
             INNER JOIN produtos AS prod ON pp.produto_id = prod.id
-            WHERE p.cliente_id = %s
-        """,
+            WHERE p.cliente_id = %s AND p.status = 'Pendente'
+            """,
             (cliente_id,),
         )
         pendencias = cursor.fetchall()
@@ -46,48 +53,6 @@ def gerar_relatorio(cliente_id):
         cursor.close()
         close_db_connection(conn)
 
-
-@pendencias_blueprint.route("/add", methods=["POST"])
-def add_pendencia():
-    data = request.json
-    conn = get_db_connection(Config.DB_CONFIG)
-    cursor = conn.cursor()
-    try:
-        # Validação do formato da data
-        try:
-            data_formatada = datetime.strptime(data["data"], "%Y-%m-%d").strftime(
-                "%Y-%m-%d"
-            )
-        except ValueError:
-            return jsonify({"error": "Formato de data inválido. Use YYYY-MM-DD."}), 400
-
-        # Cálculo do valor total
-        valor_total = sum(
-            float(item["subtotal"]) for item in data["produtos"] if "subtotal" in item
-        )
-
-        # Insere a pendência
-        cursor.execute(
-            "INSERT INTO pendencias (cliente_id, data, valor) VALUES (%s, %s, %s)",
-            (data["cliente_id"], data_formatada, valor_total),
-        )
-        pendencia_id = cursor.lastrowid
-
-        # Insere os produtos da pendência
-        for item in data["produtos"]:
-            cursor.execute(
-                "INSERT INTO pendencias_produtos (pendencia_id, produto_id, quantidade, subtotal) VALUES (%s, %s, %s, %s)",
-                (pendencia_id, item["produtoId"], item["quantidade"], item["subtotal"]),
-            )
-
-        conn.commit()
-        return jsonify({"success": True})
-    except Exception as e:
-        print("Erro ao salvar pendência:", str(e))
-        return jsonify({"error": str(e)}), 500
-    finally:
-        cursor.close()
-        close_db_connection(conn)
 
 
 @pendencias_blueprint.route("/clientes/pendentes", methods=["GET"])
@@ -142,12 +107,40 @@ def listar_pendencias():
             SELECT p.id, p.cliente_id, p.data, p.valor, c.aluno AS cliente
             FROM pendencias p
             JOIN clientes c ON p.cliente_id = c.id
-        """
+            WHERE p.status = 'Pendente'
+            """
         )
         pendencias = cursor.fetchall()
         return jsonify({"pendencias": pendencias}), 200
     except Exception as e:
         return jsonify({"error": f"Erro ao buscar pendências: {e}"}), 500
+    finally:
+        cursor.close()
+        close_db_connection(conn)
+
+
+@pendencias_blueprint.route("/pagar/<int:pendencia_id>", methods=["POST"])
+def pagar_pendencia(pendencia_id):
+    """
+    Rota para marcar uma pendência como paga
+    """
+    conn = get_db_connection(Config.DB_CONFIG)
+    cursor = conn.cursor()
+    try:
+        # Atualizar o status da pendência
+        cursor.execute(
+            """
+            UPDATE pendencias
+            SET status = 'pago'
+            WHERE id = %s
+            """,
+            (pendencia_id,),
+        )
+        conn.commit()
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        print(f"Erro ao marcar pendência como paga: {e}")
+        return jsonify({"error": f"Erro ao marcar pendência como paga: {e}"}), 500
     finally:
         cursor.close()
         close_db_connection(conn)
