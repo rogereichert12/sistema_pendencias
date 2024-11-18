@@ -109,6 +109,7 @@ $(document).ready(function () {
 
               // Recarregar pendências e atualizar tabela
               carregarPendencias();
+              carregarClientesComPendencias(); // Atualiza combobox
             }
           })
           .catch((error) => {
@@ -306,7 +307,7 @@ $(document).ready(function () {
           produtosSelecionados = [];
           atualizarListaProdutos(); // Limpa produtos
           carregarPendencias(); // Atualiza tabela
-          carregarClientesComPendencias(); // Atualiza o combobox de clentes com pendências
+          carregarClientesComPendencias(); // Atualiza combobox
         } else {
           Swal.fire({
             icon: "error",
