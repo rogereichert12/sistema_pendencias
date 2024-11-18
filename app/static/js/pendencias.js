@@ -13,10 +13,21 @@ $(document).ready(function () {
     $(".ui.sidebar").sidebar("toggle");
   });
 
+  // Função para exibir spinner
+  function mostrarSpinner() {
+    $("#spinner").addClass("active");
+  }
+
+  // Função para ocultar spinner
+  function ocultarSpinner() {
+    $("#spinner").removeClass("active");
+  }
+
   // ============================
   // Carregar Pendências
   // ============================
   function carregarPendencias() {
+    mostrarSpinner();
     fetch("/pendencias/list")
       .then((response) => response.json())
       .then((data) => {
@@ -30,11 +41,14 @@ $(document).ready(function () {
           text: "Erro ao carregar as pendências. Verifique sua conexão.",
           confirmButtonColor: "#d33",
         });
+      })
+      .finally(() => {
+        ocultarSpinner(); // Ocultar spinner após a conclusão
       });
   }
 
   // ============================
-  // Renderizar Tabela de Pendências
+  // Renderizar Tabela de Pendências com DataTables
   // ============================
   function renderTabelaPendencias() {
     const tabelaBody = $("#pendencias-table-body");
@@ -48,29 +62,50 @@ $(document).ready(function () {
 
       tabelaBody.append(`
                 <tr>
-                <td>${pendencia.id}</td>
-                <td>${pendencia.cliente}</td>
-                <td>${dataFormatada}</td>
-                <td>R$ ${valor.toFixed(2)}</td>
-                <td>
-                    <button class="ui green button pagar-pendencia-btn" data-id="${
-                      pendencia.id
-                    }">
-                    <i class="check icon"></i> Pagar
-                    </button>
-                    <button class="ui blue button visualizar-pendencia-btn" data-id="${
-                      pendencia.id
-                    }">
-                    <i class="eye icon"></i> Visualizar
-                    </button>
-                    <button class="ui red button excluir-pendencia-btn" data-id="${
-                      pendencia.id
-                    }">
-                    <i class="trash icon"></i> Excluir
-                    </button>
-                </td>
+                    <td>${pendencia.id}</td>
+                    <td>${pendencia.cliente}</td>
+                    <td>${dataFormatada}</td>
+                    <td>R$ ${valor.toFixed(2)}</td>
+                    <td>
+                        <button class="ui green button pagar-pendencia-btn" data-id="${
+                          pendencia.id
+                        }">
+                            <i class="check icon"></i> Pagar
+                        </button>
+                        <button class="ui blue button visualizar-pendencia-btn" data-id="${
+                          pendencia.id
+                        }">
+                            <i class="eye icon"></i> Visualizar
+                        </button>
+                        <button class="ui red button excluir-pendencia-btn" data-id="${
+                          pendencia.id
+                        }">
+                            <i class="trash icon"></i> Excluir
+                        </button>
+                    </td>
                 </tr>
             `);
+    });
+
+    // Inicializar DataTables após preencher a tabela
+    inicializarDataTables();
+  }
+
+  // ============================
+  // Inicializar DataTables
+  // ============================
+  function inicializarDataTables() {
+    if ($.fn.DataTable.isDataTable("#pendencias-table")) {
+      $("#pendencias-table").DataTable().destroy(); // Destruir instância existente para recriar
+    }
+
+    $("#pendencias-table").DataTable({
+      paging: true, // Ativar paginação
+      searching: true, // Ativar campo de pesquisa
+      ordering: true, // Ativar ordenação
+      language: {
+        url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json", // Tradução para português
+      },
     });
   }
 
@@ -193,22 +228,22 @@ $(document).ready(function () {
       total += subtotal;
 
       container.append(`
-                <div class="ui segment produto-item">
-                <div class="ui grid">
-                    <div class="twelve wide column">
-                    <strong>${produto.descricao}</strong><br />
-                    Quantidade: ${
-                      item.quantidade
-                    } - Subtotal: R$ ${subtotal.toFixed(2)}
-                    </div>
-                    <div class="four wide column right aligned">
-                    <button class="ui red button remove-produto-btn" data-index="${index}">
-                        <i class="trash icon"></i> Remover
-                    </button>
-                    </div>
-                </div>
-                </div>
-            `);
+                  <div class="ui segment produto-item">
+                  <div class="ui grid">
+                      <div class="twelve wide column">
+                      <strong>${produto.descricao}</strong><br />
+                      Quantidade: ${
+                        item.quantidade
+                      } - Subtotal: R$ ${subtotal.toFixed(2)}
+                      </div>
+                      <div class="four wide column right aligned">
+                      <button class="ui red button remove-produto-btn" data-index="${index}">
+                          <i class="trash icon"></i> Remover
+                      </button>
+                      </div>
+                  </div>
+                  </div>
+              `);
     });
 
     $("#total-valor").val(`R$ ${total.toFixed(2)}`);
@@ -221,18 +256,18 @@ $(document).ready(function () {
     Swal.fire({
       title: "Adicionar Produto",
       html: `
-                <select id="produto-dropdown" class="ui dropdown" style="width: 100%; margin-bottom: 10px;">
-                ${produtos
-                  .map((produto) => {
-                    const preco = parseFloat(produto.preco) || 0;
-                    return `<option value="${produto.id}">${
-                      produto.descricao
-                    } - R$ ${preco.toFixed(2)}</option>`;
-                  })
-                  .join("")}
-                </select>
-                <input type="number" id="produto-quantidade" placeholder="Quantidade" min="1" style="width: 100%; padding: 8px;" />
-            `,
+                  <select id="produto-dropdown" class="ui dropdown" style="width: 100%; margin-bottom: 10px;">
+                  ${produtos
+                    .map((produto) => {
+                      const preco = parseFloat(produto.preco) || 0;
+                      return `<option value="${produto.id}">${
+                        produto.descricao
+                      } - R$ ${preco.toFixed(2)}</option>`;
+                    })
+                    .join("")}
+                  </select>
+                  <input type="number" id="produto-quantidade" placeholder="Quantidade" min="1" style="width: 100%; padding: 8px;" />
+              `,
       showCancelButton: true,
       confirmButtonText: "Adicionar",
       cancelButtonText: "Cancelar",
@@ -287,6 +322,7 @@ $(document).ready(function () {
       return;
     }
 
+    mostrarSpinner(); // Exibir spinner durante o envio
     fetch("/pendencias/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -315,6 +351,9 @@ $(document).ready(function () {
             text: "Erro ao salvar a pendência.",
           });
         }
+      })
+      .finally(() => {
+        ocultarSpinner(); // Ocultar spinner após a conclusão
       });
   });
 
@@ -351,21 +390,21 @@ $(document).ready(function () {
 
           // Construção do conteúdo do relatório
           let conteudoRelatorio = `
-                <div style="width: 80mm; font-family: Arial, sans-serif; font-size: 12px; margin: 0 auto;">
-                  <h3 style="text-align: center;">Relatório de Pendências</h3>
-                  <p style="text-align: center;">Cliente: ${clienteNome}</p>
-                  <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
-                    <thead>
-                      <tr>
-                        <th style="border-bottom: 1px solid #000;">Data</th>
-                        <th style="border-bottom: 1px solid #000;">Descrição</th>
-                        <th style="border-bottom: 1px solid #000;">Qtd</th>
-                        <th style="border-bottom: 1px solid #000;">Preço</th>
-                        <th style="border-bottom: 1px solid #000;">Subtotal</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-              `;
+                  <div style="width: 80mm; font-family: Arial, sans-serif; font-size: 12px; margin: 0 auto;">
+                    <h3 style="text-align: center;">Relatório de Pendências</h3>
+                    <p style="text-align: center;">Cliente: ${clienteNome}</p>
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                      <thead>
+                        <tr>
+                          <th style="border-bottom: 1px solid #000;">Data</th>
+                          <th style="border-bottom: 1px solid #000;">Descrição</th>
+                          <th style="border-bottom: 1px solid #000;">Qtd</th>
+                          <th style="border-bottom: 1px solid #000;">Preço</th>
+                          <th style="border-bottom: 1px solid #000;">Subtotal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                `;
 
           pendencias.forEach((pendencia) => {
             const dataFormatada = new Date(pendencia.data).toLocaleDateString(
@@ -378,24 +417,24 @@ $(document).ready(function () {
             totalValor += parseFloat(pendencia.subtotal); // Soma os subtotais
 
             conteudoRelatorio += `
-                  <tr>
-                    <td>${dataFormatada}</td>
-                    <td>${pendencia.descricao}</td>
-                    <td>${pendencia.quantidade}</td>
-                    <td>R$ ${precoUnitario}</td>
-                    <td>R$ ${subtotal}</td>
-                  </tr>
-                `;
+                    <tr>
+                      <td>${dataFormatada}</td>
+                      <td>${pendencia.descricao}</td>
+                      <td>${pendencia.quantidade}</td>
+                      <td>R$ ${precoUnitario}</td>
+                      <td>R$ ${subtotal}</td>
+                    </tr>
+                  `;
           });
 
           conteudoRelatorio += `
-                    </tbody>
-                  </table>
-                  <p style="text-align: right; font-size: 14px; font-weight: bold; margin-top: 10px;">
-                    Total: R$ ${totalValor.toFixed(2)}
-                  </p>
-                </div>
-              `;
+                      </tbody>
+                    </table>
+                    <p style="text-align: right; font-size: 14px; font-weight: bold; margin-top: 10px;">
+                      Total: R$ ${totalValor.toFixed(2)}
+                    </p>
+                  </div>
+                `;
 
           // Criar um iframe invisível para impressão
           const iframe = document.createElement("iframe");
@@ -406,21 +445,21 @@ $(document).ready(function () {
           const doc = iframe.contentDocument || iframe.contentWindow.document;
           doc.open();
           doc.write(`
-                <html>
-                  <head>
-                    <style>
-                      body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-                      table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-                      th, td { border: 1px solid #000; padding: 5px; text-align: left; }
-                      th { background-color: #f2f2f2; }
-                      h3 { margin: 0; padding: 10px 0; text-align: center; }
-                    </style>
-                  </head>
-                  <body>
-                    ${conteudoRelatorio}
-                  </body>
-                </html>
-              `);
+                  <html>
+                    <head>
+                      <style>
+                        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                        th, td { border: 1px solid #000; padding: 5px; text-align: left; }
+                        th { background-color: #f2f2f2; }
+                        h3 { margin: 0; padding: 10px 0; text-align: center; }
+                      </style>
+                    </head>
+                    <body>
+                      ${conteudoRelatorio}
+                    </body>
+                  </html>
+                `);
           doc.close();
 
           // Inicia a impressão no iframe
